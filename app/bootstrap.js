@@ -3,14 +3,23 @@ var game =  {
 	getInitialState: getInitialState,
 	show: show,
 	search: search,
+	onLoad: onLoad,
 	getPokemons: getPokemons
 };
+function onLoad(pokeName, id) {
+	this.state.pokeNames[id] = pokeName;
+};
 function search(name) {
+	var filteredPokemons = [];
+	var self = this;
 	if(name) {
-		this.state.pokemons.forEach(function() {
-
+		this.state.pokeNames.forEach(function(item, id) {
+			if (item.toLowerCase().indexOf(name) != -1) {
+				filteredPokemons.push(self.state.pokemons[id]);
+			}
 		});
 	}
+	this.setState({ filteredPokemons: filteredPokemons });	
 };
 function getPokemons() {
 	if (this.state.filteredPokemons.length == 0) {
@@ -24,13 +33,16 @@ function show(info) {
 };
 function getInitialState() {
 	var pokemons = [];
+	var pokeNames = [];
 	var i = 1;
-	while(i <= 150) {
-		pokemons.push( <Pokemon show={this.show} key={i} id={i} /> );
+	while(i <= 10) {
+		pokemons.push( <Pokemon onLoad={this.onLoad} show={this.show} key={i} id={i} /> );
+		pokeNames.push("");
 		i++;
 	}
 	return {
 		pokemons: pokemons,
+		pokeNames: pokeNames,
 		filteredPokemons: [],
 		pokeInfo: {}
 	};

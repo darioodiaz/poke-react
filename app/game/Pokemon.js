@@ -13,10 +13,13 @@ function getSpriteUrl() {
 };
 function didMount() {
 	var self = this;
-	$.get("http://pokeapi.co/api/v1/pokemon/".concat(this.props.id)).success(function(data) { self.setState({ info: data }); });
+	$.get("http://pokeapi.co/api/v1/pokemon/".concat(this.props.id)).success(function(data) { 
+		self.props.onLoad(data.name, self.props.id - 1);
+		self.setState({ info: data }); 
+	});
 };
 function getInitialState() {
-	return { 
+	return {
 		info: { name: "Loading..." }
 	};
 };

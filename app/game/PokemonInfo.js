@@ -8,7 +8,9 @@ var pkmInfo =  {
 	}
 };
 function componentWillReceiveProps(nextProps) {
-	this.setState({ info: nextProps });
+  if (this.props.info.national_id != nextProps.national_id) {
+    this.setState({ info: nextProps });
+  }
 };
 function getBigPhoto() {
 	if (!this.props.info.name) { return; }
