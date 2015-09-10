@@ -6,8 +6,6 @@ var pokeSearch =  {
 };
 function onSubmit(e) {
 	e.preventDefault();
-	this.props.search(this.refs.txt_pokeName.getValue());
-	this.refs.txt_pokeName.setValue("");
 };
 function doPokeSearch() {
 	this.props.search(this.refs.txt_pokeName.getValue());

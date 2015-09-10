@@ -8,6 +8,7 @@ var game =  {
 };
 function onLoad(pokeName, id) {
 	this.state.pokeNames[id] = pokeName;
+	//this.setState({ pokeNames: this.state.pokeNames });
 };
 function search(name) {
 	var filteredPokemons = [];
@@ -35,7 +36,7 @@ function getInitialState() {
 	var pokemons = [];
 	var pokeNames = [];
 	var i = 1;
-	while(i <= 10) {
+	while(i <= 50) {
 		pokemons.push( <Pokemon onLoad={this.onLoad} show={this.show} key={i} id={i} /> );
 		pokeNames.push("");
 		i++;

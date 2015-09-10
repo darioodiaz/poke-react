@@ -15,7 +15,9 @@ function didMount() {
 	var self = this;
 	$.get("http://pokeapi.co/api/v1/pokemon/".concat(this.props.id)).success(function(data) { 
 		self.props.onLoad(data.name, self.props.id - 1);
-		self.setState({ info: data }); 
+		if (self.isMounted()) {
+			self.setState({ info: data }); 
+		}
 	});
 };
 function getInitialState() {
