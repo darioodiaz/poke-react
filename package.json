@@ -1,0 +1,23 @@
+{
+  "name": "poke-react",
+  "version": "0.0.0",
+  "description": "A pokemon based game using react",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darioodiaz/poke-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darioodiaz/poke-react/issues"
+  },
+  "homepage": "https://github.com/darioodiaz/poke-react",
+  "dependencies": {
+    "faye": "^1.1.2",
+    "socket.io": "^1.3.6"
+  }
+}

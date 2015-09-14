@@ -25,3 +25,7 @@
 		display: block;
 		text-align: center;
 	}
+	.poke-messages {
+		width: 200px;
+		height: 300px;
+	}

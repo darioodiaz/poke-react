@@ -1,3 +1,5 @@
+var client = new Faye.Client('http://localhost:8000/');
+
 var game =  {
 	render: render,
 	getInitialState: getInitialState,
@@ -30,13 +32,13 @@ function getPokemons() {
 	}
 };
 function show(info) {
-	this.setState({ pokeInfo: info });
+	this.refs.PokeInfo.show(info);
 };
 function getInitialState() {
 	var pokemons = [];
 	var pokeNames = [];
 	var i = 1;
-	while(i <= 50) {
+	while(i <= 10) {
 		pokemons.push( <Pokemon onLoad={this.onLoad} show={this.show} key={i} id={i} /> );
 		pokeNames.push("");
 		i++;
@@ -44,8 +46,7 @@ function getInitialState() {
 	return {
 		pokemons: pokemons,
 		pokeNames: pokeNames,
-		filteredPokemons: [],
-		pokeInfo: {}
+		filteredPokemons: []
 	};
 };
 function render () {
@@ -57,11 +58,15 @@ function render () {
 				<span></span>
 				<h1 className="text-center">Pokemon ! Catch them all</h1>
 			</Jumbotron>
-			<PokeSearch search={this.search} />
-			<Panel header="Pokemons" bsStyle="primary">
-				{this.getPokemons()}
-    		</Panel>
-    		<PokeInfo info={this.state.pokeInfo} />
+
+			<div style={ { width: '25%', display: 'inline-block', float: 'left', marginRight: '15px' } }>
+				<PokeTrainer />
+			</div>
+			<div style={ { width: '70%', display: 'inline-block', float: 'left' } }>
+				<PokeSearch search={this.search} />
+				<Panel header="Pokemons" bsStyle="primary">{this.getPokemons()}</Panel>
+			</div>
+    		<PokeInfo ref="PokeInfo" />
 		</div>
 	);
 };

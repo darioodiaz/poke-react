@@ -1,8 +1,11 @@
 var pokeSearch =  {
-	render: render, onSubmit: onSubmit, doPokeSearch: doPokeSearch,
+	render: render, onSubmit: onSubmit, doPokeSearch: doPokeSearch, componentDidMount: didMount,
 	propTypes: {
 		search: React.PropTypes.func.isRequired
 	}
+};
+function didMount() {
+	this.refs.txt_pokeName.getInputDOMNode().focus();
 };
 function onSubmit(e) {
 	e.preventDefault();
