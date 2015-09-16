@@ -1,11 +1,25 @@
 var pokeTrainer =  {
-	render: render, onSubmit: onSubmit
+	render: render, onSubmit: onSubmit,
+	componentDidMount: onMount,
+	serverLoginOk: serverLoginOk, serverLoginError: serverLoginError,
+	propTypes: {
+		onError: React.PropTypes.func.isRequired
+	}
+};
+function serverLoginOk() {
+	this.refs.PokeTrainerChat.enable(this.refs.txt_trainer.getValue());
+	this.refs.txt_trainer.getInputDOMNode().disabled = true;
+};
+function serverLoginError(error) {
+	this.props.onError(error);
+};
+function onMount() {
+	client.on("server_loginOk", this.serverLoginOk );
+	client.on("server_loginError", this.serverLoginError );
 };
 function onSubmit(e) {
 	e.preventDefault();
-	this.refs.PokeTrainerChat.enable(this.refs.txt_trainer.getValue());
-	this.refs.txt_trainer.getInputDOMNode().disabled = true;
-	client.publish("/requestLogin", { name: this.refs.txt_trainer.getValue() });
+	client.emit("requestLogin", { name: this.refs.txt_trainer.getValue() });
 };
 function render () {
 	var Input = ReactBootstrap.Input;
