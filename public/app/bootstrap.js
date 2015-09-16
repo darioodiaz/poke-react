@@ -1,4 +1,4 @@
-var client = io('http://localhost:9000/');
+var client = io("http://localhost:9000");
 
 var game =  {
 	render: render,
@@ -8,6 +8,9 @@ var game =  {
 	onLoad: onLoad,
 	onError: onError,
 	getPokemons: getPokemons
+};
+function onError(data) {
+	this.refs.GameInfo.showError(data.message);
 };
 function onLoad(pokeName, id) {
 	this.state.pokeNames[id] = pokeName;

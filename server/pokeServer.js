@@ -1,6 +1,7 @@
 var io = require("socket.io");
 var server = io();
 var trainers = {};
+var selectedPokemons = {};
 
 server.on("connection", onNewConnection);
 

@@ -1,8 +1,15 @@
 	.big-poke {
-		margin-top: 15%;
+		display: inline-block;
+		height: 200px;
+		margin-right: 25px;
+		width: 200px;
 	}
 	.bordeable {
 		border: 1px solid black;
+	}
+	.big-poke + .form-horizontal {
+		display: inline-block;
+		height: 250px;
 	}
 	.poke-btn {
 		margin: 5px 5px 5px 5px;
