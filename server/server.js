@@ -6,9 +6,9 @@ var server = http.createServer(),
     pokeReactServer = new faye.NodeAdapter({mount: '/'});
 
 pokeReactServer.attach(server);
-server.listen(8000);
+server.listen(9000);
 function initServer() {
-	console.log("Server started in 8000");
+	console.log("Server started in 9000");
 	pokeReactServer.getClient().subscribe("/requestLogin", onTrainerLogin);
 };
 
