@@ -2,8 +2,11 @@ var pkmInfo =  {
 	render: render, getInitialState: getInitialState, 
   onHide: onHide,
 	componentWillReceiveProps: componentWillReceiveProps,
-	getBigPhoto: getBigPhoto,
-  show: showPokeInfo
+	getBigPhoto: getBigPhoto, show: showPokeInfo,
+  selectPokemon: selectPokemon
+};
+function selectPokemon() {
+
 };
 function showPokeInfo(info) {
   this.setState({ info: info });
@@ -51,7 +54,8 @@ function render () {
 
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.onHide}>Cerrar</Button>
+            <Button bsStyle="success" onClick={this.selectPokemon}>Close</Button>      
+            <Button onClick={this.onHide}>Close</Button>
           </Modal.Footer>
         </Modal>
         );

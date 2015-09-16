@@ -1,4 +1,4 @@
-var client = new Faye.Client('http://localhost:9000/');
+var client = io('http://localhost:9000/');
 
 var game =  {
 	render: render,
@@ -6,11 +6,15 @@ var game =  {
 	show: show,
 	search: search,
 	onLoad: onLoad,
+	onError: onError,
 	getPokemons: getPokemons
 };
 function onLoad(pokeName, id) {
 	this.state.pokeNames[id] = pokeName;
 	//this.setState({ pokeNames: this.state.pokeNames });
+};
+function onError(data) {
+	this.refs.GameInfo.showError(data);
 };
 function search(name) {
 	var filteredPokemons = [];
@@ -60,13 +64,14 @@ function render () {
 			</Jumbotron>
 
 			<div style={ { width: '25%', display: 'inline-block', float: 'left', marginRight: '15px' } }>
-				<PokeTrainer />
+				<PokeTrainer onError={this.onError} />
 			</div>
 			<div style={ { width: '70%', display: 'inline-block', float: 'left' } }>
 				<PokeSearch search={this.search} />
 				<Panel header="Pokemons" bsStyle="primary">{this.getPokemons()}</Panel>
 			</div>
     		<PokeInfo ref="PokeInfo" />
+    		<GameInfo ref="GameInfo" />
 		</div>
 	);
 };

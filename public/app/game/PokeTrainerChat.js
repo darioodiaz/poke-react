@@ -11,7 +11,7 @@ function enable(trainer) {
 };
 function pokeTrainerChatOnMount() {
 	var self = this;
-	client.subscribe("/chat", onNewChat);
+	client.on("server_chat", onNewChat);
 	function onNewChat(data) {
 		self.state.messages.push(data);
 		self.setState(self.state.messages);
@@ -22,7 +22,7 @@ function pokeTrainerChatOnMount() {
 };
 function onSubmit(e) {
 	e.preventDefault();
-	client.publish("/chat", { trainer: this.trainer, message: this.refs.txt_msj.getValue() });
+	client.emit("chat", { trainer: this.trainer, message: this.refs.txt_msj.getValue() });
 	this.refs.txt_msj.getInputDOMNode().value = "";
 };
 function getInitialState() {
