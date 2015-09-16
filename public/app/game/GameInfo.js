@@ -28,7 +28,7 @@ function render () {
             {this.state.info}
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.onHide}>Cerrar</Button>
+            <Button onClick={this.onHide}>Close</Button>
           </Modal.Footer>
         </Modal>
         );

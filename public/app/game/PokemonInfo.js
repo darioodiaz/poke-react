@@ -2,8 +2,8 @@ var pkmInfo =  {
 	render: render, getInitialState: getInitialState, 
   onHide: onHide,
 	componentWillReceiveProps: componentWillReceiveProps,
-	getBigPhoto: getBigPhoto,
-  show: showPokeInfo, selectPokemon: selectPokemon
+	getBigPhoto: getBigPhoto, show: showPokeInfo,
+  selectPokemon: selectPokemon
 };
 function selectPokemon() {
 

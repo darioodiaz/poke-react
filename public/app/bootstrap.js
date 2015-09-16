@@ -16,6 +16,9 @@ function onLoad(pokeName, id) {
 	this.state.pokeNames[id] = pokeName;
 	//this.setState({ pokeNames: this.state.pokeNames });
 };
+function onError(data) {
+	this.refs.GameInfo.showError(data);
+};
 function search(name) {
 	var filteredPokemons = [];
 	var self = this;
