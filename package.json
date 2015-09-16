@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/darioodiaz/poke-react",
   "dependencies": {
-    "faye": "^1.1.2",
-    "socket.io": "^1.3.6"
+    "express": "^4.13.3",
+    "faye": "^1.1.2"
   }
 }
