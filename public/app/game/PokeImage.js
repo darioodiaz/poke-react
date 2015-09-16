@@ -2,11 +2,8 @@ var pkmInfo =  {
 	render: render, getInitialState: getInitialState, 
   onHide: onHide,
 	componentWillReceiveProps: componentWillReceiveProps,
-	getBigPhoto: getBigPhoto, show: showPokeInfo,
-  selectPokemon: selectPokemon
-};
-function selectPokemon() {
-
+	getBigPhoto: getBigPhoto,
+  show: showPokeInfo
 };
 function showPokeInfo(info) {
   this.setState({ info: info });
@@ -36,7 +33,7 @@ function render () {
             <Modal.Title>Pokemon Info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <img className="big-poke" src={this.getBigPhoto()} />
+            <PokeImage src={this.getBigPhoto()} />
             <form className="form-horizontal">
                 <FormControls.Static label="Name" labelClassName="col-xs-6" wrapperClassName="col-xs-6" value={this.state.info.name} />
                 <FormControls.Static label="Attack" labelClassName="col-xs-6" wrapperClassName="col-xs-6" value={this.state.info.attack} />
@@ -48,8 +45,7 @@ function render () {
               </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="success" onClick={this.selectPokemon}>Select!</Button>
-            <Button onClick={this.onHide}>Close</Button>
+            <Button onClick={this.onHide}>Cerrar</Button>
           </Modal.Footer>
         </Modal>
         );

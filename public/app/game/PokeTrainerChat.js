@@ -10,14 +10,13 @@ function enable(trainer) {
 	}).bind(this), 100);
 };
 function pokeTrainerChatOnMount() {
-	var self = this;
-	client.on("server_chat", onNewChat);
+	client.on("server_chat", onNewChat.bind(this) );
 	function onNewChat(data) {
-		self.state.messages.push(data);
-		self.setState(self.state.messages);
-		setTimeout( (function() {
+		this.state.messages.push(data);
+		this.setState(this.state.messages);
+		setTimeout(function() {
 			document.getElementsByClassName("poke-messages")[0].scrollTop = document.getElementsByClassName("poke-messages")[0].scrollHeight;
-		}).bind(this), 100);
+		}, 100);
 	};
 };
 function onSubmit(e) {
