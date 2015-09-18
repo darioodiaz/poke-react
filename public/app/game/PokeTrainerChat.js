@@ -1,9 +1,10 @@
 var pokeTrainerChat =  {
-	render: render, getMessages, onSubmit: onSubmit, componentDidMount: pokeTrainerChatOnMount, getInitialState: getInitialState,
-	enable: enable
+	render: render, getMessages, 
+	onSubmit: onSubmit, componentDidMount: pokeTrainerChatOnMount, 
+	getInitialState: getInitialState, enable: enable
 };
 function enable(trainer) {
-	this.trainer = trainer;
+	client.trainer = trainer;
 	this.setState({ disabled: false });
 	setTimeout( (function() {
 		this.refs.txt_msj.getInputDOMNode().focus();
@@ -21,7 +22,7 @@ function pokeTrainerChatOnMount() {
 };
 function onSubmit(e) {
 	e.preventDefault();
-	client.emit("chat", { trainer: this.trainer, message: this.refs.txt_msj.getValue() });
+	client.emit("chat", { trainer: client.trainer, message: this.refs.txt_msj.getValue() });
 	this.refs.txt_msj.getInputDOMNode().value = "";
 };
 function getInitialState() {
