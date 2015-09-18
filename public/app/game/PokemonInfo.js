@@ -1,16 +1,21 @@
 var pkmInfo =  {
 	render: render, getInitialState: getInitialState, 
-  onHide: onHide,
-	componentWillReceiveProps: componentWillReceiveProps,
+  onHide: onHide,	componentWillReceiveProps: componentWillReceiveProps,
 	getBigPhoto: getBigPhoto, show: showPokeInfo,
-  selectPokemon: selectPokemon
+  selectPokemon: selectPokemon, componentDidMount: onMount,
+  onPokemonAccepted: onPokemonAccepted
+};
+function onPokemonAccepted(poke) {
+  if (!client.pokemonData) {
+    client.pokemonData = poke;
+    this.onHide();
+  }
+};
+function onMount() {
+  client.on("server_pokemonRequestAccepted", this.onPokemonAccepted);
 };
 function selectPokemon() {
-  client.emit("requestPokemon", { trainer: client.trainer, id: client.id, pokemon: this.state.info.national_id });
-  if (!client.pokemonData) {
-    client.pokemonData = this.state.info;
-  }
-  this.onHide();
+  client.emit("requestPokemon", { trainer: client.trainer, id: client.id, pokemon: this.state.info });
 };
 function showPokeInfo(info) {
   this.setState({ info: info });

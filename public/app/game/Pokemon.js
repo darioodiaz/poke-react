@@ -10,7 +10,7 @@ function available(status) {
 	this.setState({ enabled: status });
 };
 function getName() {
-	if (this.state.info.name.toLowerCase().indexOf("loading") != -1) { return; }
+	if (this.state.info.name.toLowerCase().indexOf("loading") != -1) { return ""; }
 	return this.state.info.name;
 };
 function showInfo() {

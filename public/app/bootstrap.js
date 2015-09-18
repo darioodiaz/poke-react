@@ -1,12 +1,16 @@
 var client = io("http://localhost:9000");
+var ReactPokeArena;
 
 var game =  {
-	render: render,
-	componentDidMount: componentDidMount,
-	show: show,
-	search: search,
-	onError: onError,
-	onLoginOk: onLoginOk
+	render: render, componentDidMount: componentDidMount,
+	show: show, search: search,
+	onError: onError, onLoginOk: onLoginOk,
+	onBattle: onBattle
+};
+function onBattle(opponent) {
+	if (!ReactPokeArena) {
+		React.render(<PokeArena opponent={opponent} />, document.getElementById("pokeArena"));
+	}
 };
 function componentDidMount() {
 	client.on("server_loginOk", this.onLoginOk);
@@ -35,7 +39,7 @@ function render () {
 			</Jumbotron>
 
 			<div style={ { width: '25%', display: 'inline-block', float: 'left', marginRight: '15px' } }>
-				<PokeTrainer ref="PokeTrainer" />
+				<PokeTrainer onBattle={this.onBattle} ref="PokeTrainer" />
 			</div>
 			<div style={ { width: '70%', display: 'inline-block', float: 'left' } }>
 				<PokeSearch search={this.search} />
@@ -46,6 +50,5 @@ function render () {
 		</div>
 	);
 };
-
 var App = React.createClass(game);
 React.render(<App />, document.getElementById("app"));

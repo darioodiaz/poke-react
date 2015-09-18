@@ -16,20 +16,25 @@ function onPokeListMount() {
 	client.emit("requestPokeList");
 };
 function search(name) {
+	return;
+	//TODO: FIX
 	var pokemons = [];
 	if(name) {
-		this.pokemons.forEach( iterateFn.bind(this) );
-		this.setState({ pokemons: pokemons });	
-	}
-	function iterateFn(item, id) {
-		if (item.getName().toLowerCase().indexOf(name) != -1) {
-			pokemons.push(this.pokemons[id]);
+		var i = 1;
+		while(i <= 10) {
+			if (this.refs["poke_" + i].getName().toLowerCase().indexOf(name) != -1) {
+				pokemons.push( this.refs["poke_" + (i+1)] );
+			}
+			i++;
 		}
-	};
+	} else {
+		pokemons = this.pokemons;
+	}
+	this.setState({ pokemons: pokemons });
 };
 function updatePokeList(selectedPokemons) {
 	for (var key in selectedPokemons) {
-		this.refs["poke_" + selectedPokemons[key].pokemon].available(false);
+		this.refs["poke_" + key[2] ].available(false);
 	}
 	this.firstTime = false;
 	this.forceUpdate();
@@ -47,6 +52,7 @@ function render () {
 					this.state.pokemons.push( <Pokemon ref={"poke_"+i} show={this.props.show} key={i} id={i} /> );
 					i++;
 				}
+				this.pokemons = this.state.pokemons;
 			}).bind(this)()
 		}
 		{ this.state.pokemons }

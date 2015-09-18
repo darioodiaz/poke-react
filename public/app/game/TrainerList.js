@@ -1,7 +1,13 @@
 var trainerList =  {
 	render: render, getInitialState: getInitialState,
 	componentDidMount: onMount, updateTrainerList: updateTrainerList,
-	prepareBattle: prepareBattle
+	prepareBattle: prepareBattle,
+	propTypes: {
+		onTrainerSelect: React.PropTypes.func.isRequired
+	}
+};
+function search(name) {
+
 };
 function onMount() {
 	client.on("server_updateTrainerList", this.updateTrainerList );
@@ -15,15 +21,15 @@ function getInitialState() {
 function updateTrainerList(trainers) {
 	var trainersForBattle = [];
 	for(var key in trainers) {
-		if (trainers[key].id == client.id) {
+		if (trainers[key].id == client.id || !trainers[key].pokemon) {
 			return;
 		}
-		trainersForBattle.push({ name: trainers[key].name  });
+		trainersForBattle.push(trainers[key]);
 	}
 	this.setState({ trainersForBattle: trainersForBattle });
 };
-function prepareBattle() {
-
+function prepareBattle(e, ek) {
+	this.props.onTrainerSelect(this.state.trainersForBattle[ek]);
 };
 function render () {
 	var Dropdown = ReactBootstrap.Dropdown;
@@ -36,9 +42,9 @@ function render () {
         		Battle !
       		</Dropdown.Toggle>
 	        <Dropdown.Menu>{
-		        this.state.trainersForBattle.map(function(item, i) {
-					return <MenuItem key={i} eventKey={i} onSelect={this.prepareBattle} >{item.name + " - " + item.pokemon}</MenuItem>
-				})
+		        this.state.trainersForBattle.map( (function(item, i) {
+					return <MenuItem key={i} eventKey={i} onSelect={this.prepareBattle} >{item.name + " - " + item.pokemon.name}</MenuItem>
+				}).bind(this) )
 	      	}</Dropdown.Menu>
     	</Dropdown>);
 };
