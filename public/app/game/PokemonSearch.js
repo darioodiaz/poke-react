@@ -16,7 +16,7 @@ function doPokeSearch() {
 function render () {
 	var Input = ReactBootstrap.Input;
 	var Glyphicon = ReactBootstrap.Glyphicon;	
-	var Panel = ReactBootstrap.Panel;	
+	var Panel = ReactBootstrap.Panel;
 	return (
 		<Panel header="Pokemon search" bsStyle="info">
 			<form onSubmit={this.onSubmit}>

@@ -6,7 +6,11 @@ var pkmInfo =  {
   selectPokemon: selectPokemon
 };
 function selectPokemon() {
-
+  client.emit("requestPokemon", { trainer: client.trainer, id: client.id, pokemon: this.state.info.national_id });
+  if (!client.pokemonData) {
+    client.pokemonData = this.state.info;
+  }
+  this.onHide();
 };
 function showPokeInfo(info) {
   this.setState({ info: info });

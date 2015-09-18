@@ -2,62 +2,30 @@ var client = io("http://localhost:9000");
 
 var game =  {
 	render: render,
-	getInitialState: getInitialState,
+	componentDidMount: componentDidMount,
 	show: show,
 	search: search,
-	onLoad: onLoad,
 	onError: onError,
-	getPokemons: getPokemons
+	onLoginOk: onLoginOk
+};
+function componentDidMount() {
+	client.on("server_loginOk", this.onLoginOk);
+	client.on("server_loginError", this.onError);
+	client.on("server_pokemonError", this.onError);
+};
+function search(name) {
+	this.refs.PokeList.search(name);
+};
+function onLoginOk() {
+	this.refs.PokeTrainer.loginOk();
 };
 function onError(data) {
 	this.refs.GameInfo.showError(data.message);
 };
-function onLoad(pokeName, id) {
-	this.state.pokeNames[id] = pokeName;
-	//this.setState({ pokeNames: this.state.pokeNames });
-};
-function onError(data) {
-	this.refs.GameInfo.showError(data);
-};
-function search(name) {
-	var filteredPokemons = [];
-	var self = this;
-	if(name) {
-		this.state.pokeNames.forEach(function(item, id) {
-			if (item.toLowerCase().indexOf(name) != -1) {
-				filteredPokemons.push(self.state.pokemons[id]);
-			}
-		});
-	}
-	this.setState({ filteredPokemons: filteredPokemons });	
-};
-function getPokemons() {
-	if (this.state.filteredPokemons.length == 0) {
-		return this.state.pokemons;
-	} else {
-		return this.state.filteredPokemons;
-	}
-};
 function show(info) {
 	this.refs.PokeInfo.show(info);
 };
-function getInitialState() {
-	var pokemons = [];
-	var pokeNames = [];
-	var i = 1;
-	while(i <= 10) {
-		pokemons.push( <Pokemon onLoad={this.onLoad} show={this.show} key={i} id={i} /> );
-		pokeNames.push("");
-		i++;
-	}
-	return {
-		pokemons: pokemons,
-		pokeNames: pokeNames,
-		filteredPokemons: []
-	};
-};
 function render () {
-	var Panel = ReactBootstrap.Panel;
 	var Jumbotron = ReactBootstrap.Jumbotron;
 	return (
 		<div>
@@ -67,11 +35,11 @@ function render () {
 			</Jumbotron>
 
 			<div style={ { width: '25%', display: 'inline-block', float: 'left', marginRight: '15px' } }>
-				<PokeTrainer onError={this.onError} />
+				<PokeTrainer ref="PokeTrainer" />
 			</div>
 			<div style={ { width: '70%', display: 'inline-block', float: 'left' } }>
 				<PokeSearch search={this.search} />
-				<Panel header="Pokemons" bsStyle="primary">{this.getPokemons()}</Panel>
+				<PokeList show={this.show} ref="PokeList" />
 			</div>
     		<PokeInfo ref="PokeInfo" />
     		<GameInfo ref="GameInfo" />

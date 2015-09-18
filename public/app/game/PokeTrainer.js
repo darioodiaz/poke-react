@@ -1,18 +1,8 @@
 var pokeTrainer =  {
-	render: render, onSubmit: onSubmit, componentDidMount: onMount,
-	onLoginOk: onLoginOk, onLoginError: onLoginError,
-	propTypes: {
-		onError: React.PropTypes.func.isRequired
-	}
+	render: render, onSubmit: onSubmit,
+	loginOk: loginOk
 };
-function onMount() {
-	client.on("server_loginOk", this.onLoginOk);
-	client.on("server_loginError", this.onLoginError);
-};
-function onLoginError(data) {
-	this.props.onError(data.message);
-};
-function onLoginOk() {
+function loginOk() {
 	this.refs.PokeTrainerChat.enable(this.refs.txt_trainer.getValue());
 	this.refs.txt_trainer.getInputDOMNode().disabled = true;
 };
@@ -25,7 +15,7 @@ function render () {
 	var Glyphicon = ReactBootstrap.Glyphicon;	
 	var Panel = ReactBootstrap.Panel;	
 	return (
-		<Panel header="Trainer Panel" bsStyle="success">
+		<Panel header={<span>Trainer Panel <TrainerList ref="TrainerList" /></span> } bsStyle="success">
 			<form onSubmit={this.onSubmit}>
     			<Input bsSize="small" ref="txt_trainer" required="true" type="text" placeholder="Type your trainer's name here..." addonAfter={<Glyphicon glyph="record" />} />
   			</form>
